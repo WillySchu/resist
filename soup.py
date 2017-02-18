@@ -22,14 +22,18 @@ def find(elem, res={}):
                 position = elem.span.text
                 # print elem.next_sibling.next_sibling
                 if elem.next_sibling.next_sibling.name == 'dl':
-                    print elem
                     cands = elem.next_sibling.next_sibling
                     names = getNames(cands.dd)
                     res[position] = names
 
                 if elem.next_sibling.next_sibling == 'h4':
                     if elem.span['class'] == ['mw-headline']:
-                        
+                        res[position] = {}
+                        subpos = elem.span.text
+                        if elem.next_sibling.next_sibling.name == 'dl':
+                            cands = elem.next_sibling.next_sibling
+                            names = getNames(cands.dd)
+                            res[subpos] = names
     except:
         pass
 

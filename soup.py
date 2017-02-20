@@ -26,7 +26,8 @@ def find(elem, res={}):
                     names = getNames(cands.dd)
                     res[position] = names
 
-                if elem.next_sibling.next_sibling == 'h4':
+                elif elem.next_sibling.next_sibling.name == 'h4':
+                    # elem = elem.next_sibling.next_sibling
                     if elem.span['class'] == ['mw-headline']:
                         res[position] = {}
                         subpos = elem.span.text
@@ -38,7 +39,9 @@ def find(elem, res={}):
         pass
 
     if elem.next_sibling:
-        find(elem.next_sibling)
+        return find(elem.next_sibling, res)
+    else:
+        print res
 
 def getNames(cand, res=[]):
     try:
@@ -49,7 +52,6 @@ def getNames(cand, res=[]):
     if cand.next_sibling:
         return getNames(cand.next_sibling, res)
     else:
-        print res
         return res
 
 
